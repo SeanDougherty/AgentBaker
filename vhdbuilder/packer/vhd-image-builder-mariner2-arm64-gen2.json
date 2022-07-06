@@ -14,6 +14,7 @@
       "hyperv_generation": "{{env `HYPERV_GENERATION`}}",
       "container_runtime": "{{env `CONTAINER_RUNTIME`}}",
       "teleportd_plugin_download_url": "{{env `TELEPORTD_PLUGIN_DOWNLOAD_URL`}}",
+      "arm64_os_disk_snapshot_name": "{{env `${ARM64_OS_DISK_SNAPSHOT_NAME`}}",
       "gen2_captured_sig_version": "{{env `${GEN2_CAPTURED_SIG_VERSION`}}",
       "enable_fips": "{{env `ENABLE_FIPS`}}",
       "img_publisher": "{{env `IMG_PUBLISHER`}}",
@@ -42,6 +43,7 @@
         "location": "{{user `location`}}",
         "vm_size": "{{user `vm_size`}}",
         "custom_data_file": "vhdbuilder/packer/sha1rsa_custom_data",
+        "managed_image_os_disk_snapshot_name": "{{user `arm64_os_disk_snapshot_name`}}",
         "managed_image_resource_group_name": "{{user `resource_group_name`}}",
         "managed_image_name": "{{user `sig_image_name`}}-{{user `gen2_captured_sig_version`}}",
         "shared_image_gallery_destination": {
@@ -154,6 +156,11 @@
       },
       {
         "type": "file",
+        "source": "parts/linux/cloud-init/artifacts/sshd_config_1804_fips",
+        "destination": "/home/packer/sshd_config_1804_fips"
+      },
+      {
+        "type": "file",
         "source": "parts/linux/cloud-init/artifacts/rsyslog-d-60-CIS.conf",
         "destination": "/home/packer/rsyslog-d-60-CIS.conf"
       },
@@ -244,6 +251,16 @@
       },
       {
         "type": "file",
+        "source": "parts/linux/cloud-init/artifacts/docker-monitor.service",
+        "destination": "/home/packer/docker-monitor.service"
+      },
+      {
+        "type": "file",
+        "source": "parts/linux/cloud-init/artifacts/docker-monitor.timer",
+        "destination": "/home/packer/docker-monitor.timer"
+      },
+      {
+        "type": "file",
         "source": "parts/linux/cloud-init/artifacts/containerd-monitor.service",
         "destination": "/home/packer/containerd-monitor.service"
       },
@@ -251,6 +268,26 @@
         "type": "file",
         "source": "parts/linux/cloud-init/artifacts/containerd-monitor.timer",
         "destination": "/home/packer/containerd-monitor.timer"
+      },
+      {
+        "type": "file",
+        "source": "parts/linux/cloud-init/artifacts/docker_clear_mount_propagation_flags.conf",
+        "destination": "/home/packer/docker_clear_mount_propagation_flags.conf"
+      },
+      {
+        "type": "file",
+        "source": "parts/linux/cloud-init/artifacts/nvidia-modprobe.service",
+        "destination": "/home/packer/nvidia-modprobe.service"
+      },
+      {
+        "type": "file",
+        "source": "parts/linux/cloud-init/artifacts/nvidia-docker-daemon.json",
+        "destination": "/home/packer/nvidia-docker-daemon.json"
+      },
+      {
+        "type": "file",
+        "source": "parts/linux/cloud-init/artifacts/nvidia-device-plugin.service",
+        "destination": "/home/packer/nvidia-device-plugin.service"
       },
       {
         "type": "file",
