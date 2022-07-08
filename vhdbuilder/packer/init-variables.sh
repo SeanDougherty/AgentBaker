@@ -120,6 +120,9 @@ if [[ ${ARCHITECTURE,,} == "arm64" ]]; then
   azversion=$(az version | jq '."azure-cli"' | tr -d '"')
   echo "1 ${azversion}"
   if [[ "${azversion}" < "2.35.0" ]]; then
+	echo "2'"
+	# Added because az upgrade -y was failing in the pipeline due to an absence of setuptools package
+	python -m pip install --upgrade pip
 	echo "2"
     az upgrade -y
 	echo "3: ${CLIENT_ID} , ${CLIENT_SECRET} , ${TENANT_ID}"
