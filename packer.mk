@@ -43,7 +43,12 @@ else ifeq (${OS_VERSION},V2)
 ifeq (${ARCHITECTURE}, ARM64)
 ifeq (${MODE},gen2Mode)
 	@echo "${MODE}: Building with Hyper-v generation 2 ARM64 VM"
-	@packer build -var-file=vhdbuilder/packer/settings.json vhdbuilder/packer/vhd-image-builder-mariner2-arm64-gen2.json
+	@rm -f ./vhdbuilder/packer/packer
+	@curl -fsSL https://packerbinary.blob.core.windows.net/bin/packer -o ./vhdbuilder/packer/packer
+	@chmod a+x ./vhdbuilder/packer/packer
+	@./vhdbuilder/packer/packer build -var-file=vhdbuilder/packer/settings.json vhdbuilder/packer/vhd-image-builder-mariner2-arm64-gen2.json
+	@echo "${MODE}: Convert os disk snapshot to SIG"
+	@./vhdbuilder/packer/convert-osdisk-snapshot-to-sig.sh
 else ifeq (${MODE},sigMode)
 	$(error sigMode not supported yet)
 else
