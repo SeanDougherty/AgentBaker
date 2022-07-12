@@ -119,6 +119,14 @@ if [[ ${ARCHITECTURE,,} == "arm64" ]]; then
   # Only az published after April 06 2022 supports --architecture for command 'az sig image-definition create...'
   azversion=$(az version | jq '."azure-cli"' | tr -d '"')
   if [[ "${azversion}" < "2.35.0" ]]; then
+	if [[ "$(python3 -V)" =~ "Python 3" ]]
+		python3 -V
+		python -V
+  		python -m ensurepip --upgrade -y
+	else 
+		apt-get install python3.8
+		python -m ensurepip --upgrade -y
+	fi
     az upgrade -y
     az login --service-principal -u ${CLIENT_ID} -p ${CLIENT_SECRET} --tenant ${TENANT_ID}
     az account set -s ${SUBSCRIPTION_ID}
