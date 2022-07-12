@@ -122,10 +122,12 @@ if [[ ${ARCHITECTURE,,} == "arm64" ]]; then
 	if [[ "$(python3 -V)" =~ "Python 3" ]]; then
 		python3 -V
 		python -V
-  		python -m ensurepip --upgrade -y
+  		curl https://bootstrap.pypa.io/get-pip.py > get-pip.py
+		python get-pip.py
 	else 
-		apt-get install python3.8
-		python -m ensurepip --upgrade -y
+		apt install python3.6
+		curl https://bootstrap.pypa.io/get-pip.py > get-pip.py
+		python get-pip.py
 	fi
     az upgrade -y
     az login --service-principal -u ${CLIENT_ID} -p ${CLIENT_SECRET} --tenant ${TENANT_ID}
