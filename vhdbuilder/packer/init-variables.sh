@@ -119,7 +119,7 @@ if [[ ${ARCHITECTURE,,} == "arm64" ]]; then
     az login --service-principal -u ${CLIENT_ID} -p ${CLIENT_SECRET} --tenant ${TENANT_ID}
     az account set -s ${SUBSCRIPTION_ID}
   fi
-fi 
+fi
 
 if [[ "$MODE" == "sigMode" || "$MODE" == "gen2Mode" ]]; then
 	echo "SIG existence checking for $MODE"
