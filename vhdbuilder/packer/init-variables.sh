@@ -109,16 +109,12 @@ if [[ "$MODE" == "gen2Mode" ]]; then
 	fi
 fi
 
-echo "Found arch: ${ARCHITECTURE}"
-echo "Formatted arch value: ${ARCHITECTURE,,}"
-
 if [[ ${ARCHITECTURE,,} == "arm64" ]]; then
   ARM64_OS_DISK_SNAPSHOT_NAME="arm64_osdisk_snapshot_${CREATE_TIME}_$RANDOM"
   SIG_IMAGE_NAME=${SIG_IMAGE_NAME//./}Arm64
-  echo "Found ARCHITECTURE == arm64. Setting to SIG_IMAGE_NAME to ${SIG_IMAGE_NAME}"
   # Only az published after April 06 2022 supports --architecture for command 'az sig image-definition create...'
   azversion=$(az version | jq '."azure-cli"' | tr -d '"')
-  if [[ "${azversion}" < "2.35.0" ]]; then	
+  if [[ "${azversion}" < "2.35.0" ]]; then
     az upgrade -y
     az login --service-principal -u ${CLIENT_ID} -p ${CLIENT_SECRET} --tenant ${TENANT_ID}
     az account set -s ${SUBSCRIPTION_ID}
