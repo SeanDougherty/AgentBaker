@@ -1,6 +1,7 @@
 {
   "variables": {
     "subscription_id": "{{env `AZURE_SUBSCRIPTION_ID`}}",
+    "client_id": "{{env `CLIENT_ID`}}",
     "location": "{{env `AZURE_LOCATION`}}",
     "vm_size": "{{env `AZURE_VM_SIZE`}}",
     "build_definition_name": "{{env `BUILD_DEFINITION_NAME`}}",
@@ -25,6 +26,7 @@
     "sgx_install": "{{env `SGX_INSTALL`}}",
     "vnet_name": "{{env `VNET_NAME`}}",
     "subnet_name": "{{env `SUBNET_NAME`}}",
+    "azure_resource_group_name": "{{env `AZURE_RESOURCE_GROUP_NAME`}}",
     "enable_cgroupv2": "{{env `ENABLE_CGROUPV2`}}",
     "private_packages_url": "{{env `PRIVATE_PACKAGES_URL`}}",
     "branch": "{{env `BRANCH`}}"
@@ -33,8 +35,10 @@
     {
       "type": "azure-arm",
       "subscription_id": "{{user `subscription_id`}}",
+      "client_id": "{{ user `client_id`}}",
       "virtual_network_name": "{{user `vnet_name`}}",
       "virtual_network_subnet_name": "{{user `subnet_name`}}",
+      "virtual_network_resource_group_name": "{{user `azure_resource_group_name`}}",
       "ssh_read_write_timeout": "5m",
       "os_type": "Linux",
       "os_disk_size_gb": 30,
