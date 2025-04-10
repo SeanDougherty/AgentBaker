@@ -13,10 +13,10 @@ ifeq (${OS_SKU},Ubuntu)
 	@packer build -var-file=vhdbuilder/packer/settings.json vhdbuilder/packer/vhd-image-builder-arm64-gen2.json
 else ifeq (${OS_SKU},CBLMariner)
 	@echo "Using packer template file vhd-image-builder-mariner-arm64.json"
-	@packer build -var-file=vhdbuilder/packer/settings.json vhdbuilder/packer/vhd-image-builder-mariner-arm64.json
+	@PACKER_LOG=1 packer build -debug -var-file=vhdbuilder/packer/settings.json vhdbuilder/packer/vhd-image-builder-mariner-arm64.json
 else ifeq (${OS_SKU},AzureLinux)
 	@echo "Using packer template file vhd-image-builder-mariner-arm64.json"
-	@packer build -var-file=vhdbuilder/packer/settings.json vhdbuilder/packer/vhd-image-builder-mariner-arm64.json
+	@PACKER_LOG=1 packer build -debug -var-file=vhdbuilder/packer/settings.json vhdbuilder/packer/vhd-image-builder-mariner-arm64.json
 else
 	$(error OS_SKU was invalid ${OS_SKU})
 endif
@@ -38,14 +38,14 @@ else
 endif
 else ifeq (${OS_SKU},CBLMariner)
 	@echo "Using packer template file vhd-image-builder-mariner.json"
-	@packer build -var-file=vhdbuilder/packer/settings.json vhdbuilder/packer/vhd-image-builder-mariner.json
+	@PACKER_LOG=1 packer build -debug -var-file=vhdbuilder/packer/settings.json vhdbuilder/packer/vhd-image-builder-mariner.json
 else ifeq (${OS_SKU},AzureLinux)
 ifeq ($(findstring cvm,$(FEATURE_FLAGS)),cvm)
 	@echo "Using packer template file vhd-image-builder-mariner-cvm.json"
 	@packer build -var-file=vhdbuilder/packer/settings.json vhdbuilder/packer/vhd-image-builder-mariner-cvm.json
 else
 	@echo "Using packer template file vhd-image-builder-mariner.json"
-	@packer build -var-file=vhdbuilder/packer/settings.json vhdbuilder/packer/vhd-image-builder-mariner.json
+	@PACKER_LOG=1 packer build -debug -var-file=vhdbuilder/packer/settings.json vhdbuilder/packer/vhd-image-builder-mariner.json
 endif
 else
 	$(error OS_SKU was invalid ${OS_SKU})
